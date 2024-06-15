@@ -7,8 +7,8 @@ import { setUserTheme } from "@/features/auth/actions";
 import { disableAnimations } from "@/utils/disable-animations";
 
 interface ThemeProviderContextValue {
-  theme: Theme;
-  toggleTheme: () => void;
+  mode: Theme;
+  toggle: () => void;
 }
 
 interface ThemeProviderProps {
@@ -33,23 +33,21 @@ interface ThemeProviderProps {
   children: React.ReactNode;
 }
 const ThemeProvider: React.FC<ThemeProviderProps> = ({ defaultTheme, children }) => {
-  const [theme, setTheme] = React.useState<Theme>(defaultTheme);
+  const [mode, setMode] = React.useState<Theme>(defaultTheme);
 
-  const toggleTheme = React.useCallback(() => {
-    const newTheme = theme === "light" ? "dark" : "light";
+  const toggle = React.useCallback(() => {
+    const newMode = mode === "light" ? "dark" : "light";
     const enableAnimations = disableAnimations();
 
-    setTheme(newTheme);
-    setUserTheme(newTheme);
-    document.documentElement.style.colorScheme = newTheme;
-    document.documentElement.classList.replace(theme, newTheme);
+    setMode(newMode);
+    setUserTheme(newMode);
+    document.documentElement.style.colorScheme = newMode;
+    document.documentElement.classList.replace(mode, newMode);
     enableAnimations();
-  }, [theme]);
+  }, [mode]);
 
   return (
-    <ThemeProviderContext.Provider
-      value={React.useMemo(() => ({ theme, toggleTheme }), [theme, toggleTheme])}
-    >
+    <ThemeProviderContext.Provider value={React.useMemo(() => ({ mode, toggle }), [mode, toggle])}>
       {children}
     </ThemeProviderContext.Provider>
   );

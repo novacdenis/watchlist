@@ -1,4 +1,4 @@
-export function disableAnimations() {
+function disableAnimations() {
   const style = document.createElement("style");
 
   style.appendChild(
@@ -23,3 +23,5 @@ export function disableAnimations() {
     }, 1);
   };
 }
+
+export { disableAnimations };

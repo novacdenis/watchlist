@@ -4,5 +4,5 @@
   },
   "css.lint.unknownAtRules": "ignore",
   "typescript.tsdk": "node_modules\\typescript\\lib",
-  "cSpell.words": ["clsx", "tailwindcss", "watchlist"]
+  "cSpell.words": ["clsx", "heroicons", "tailwindcss", "watchlist"]
 }

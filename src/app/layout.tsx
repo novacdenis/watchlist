@@ -3,6 +3,7 @@ import type { Theme } from "@/types";
 import { cookies } from "next/headers";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
+import { MainLayout } from "@/layouts/main-layout";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { cn } from "@/utils/cn";
 
@@ -24,7 +25,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       style={{ colorScheme: resolvedTheme }}
     >
       <body>
-        <ThemeProvider defaultTheme={resolvedTheme}>{children}</ThemeProvider>
+        <ThemeProvider defaultTheme={resolvedTheme}>
+          <MainLayout>{children}</MainLayout>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -1,11 +1,9 @@
-import { MainLayoutTheme } from "./main-layout-theme";
 import { MainLayoutUser } from "./main-layout-user";
 
-export function MainLayout({ children }: { children: React.ReactNode }) {
+function MainLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <header className="flex items-center justify-end gap-x-2">
-        <MainLayoutTheme />
+      <header className="flex items-center justify-end gap-x-2 p-5">
         <MainLayoutUser />
       </header>
 
@@ -13,3 +11,5 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
     </>
   );
 }
+
+export { MainLayout };
