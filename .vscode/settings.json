@@ -8,5 +8,5 @@
   ],
   "css.lint.unknownAtRules": "ignore",
   "typescript.tsdk": "node_modules\\typescript\\lib",
-  "cSpell.words": ["clsx", "heroicons", "tailwindcss", "watchlist"]
+  "cSpell.words": ["clsx", "fira", "firacode", "heroicons", "tailwindcss", "watchlist"]
 }
