@@ -22,6 +22,13 @@ export const metadata = {
   description: "A simple watchlist app",
 };
 
+export const viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
+};
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const theme = await getUserTheme();
 

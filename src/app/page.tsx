@@ -1,32 +1,26 @@
 import Image from "next/image";
-import { StarIcon } from "@heroicons/react/24/outline";
 
 export default function Home() {
   return (
-    <section className="container p-5">
+    <section className="container gap-5 p-5">
       <h2 className="text-lg font-medium">Popular Movies</h2>
-      <div className="mt-4 grid grid-cols-2 gap-5">
+      <div className="mt-4 grid grid-cols-2 gap-5 md:grid-cols-4">
         <article className="relative h-[224px] overflow-hidden rounded-xl border-2">
-          {/* <Image fill src="/images/furiosa.jpg" alt="Hero" style={{ height: "auto" }} /> */}
-          <img
+          <Image
             src="/images/furiosa.jpg"
             alt="Hero"
             className="object-fill"
-            style={{
-              height: "100%",
-              width: "100%",
-            }}
+            width={300}
+            height={224}
           />
         </article>
         <article className="relative h-[224px] overflow-hidden rounded-xl border-2">
-          <img
+          <Image
             src="/images/avengers.jpg"
             alt="Hero"
             className="object-fill"
-            style={{
-              height: "100%",
-              width: "100%",
-            }}
+            width={300}
+            height={224}
           />
         </article>
       </div>

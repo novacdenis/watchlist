@@ -16,7 +16,7 @@ function MainLayoutUser() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button className="group flex items-center justify-center rounded-full bg-primary/10 p-1 transition-colors active:bg-primary/15 aria-expanded:bg-primary/15 md:hover:bg-primary/15">
-          <Avatar className="h-8 w-8">
+          <Avatar className="h-8 w-8 shadow-sm">
             <AvatarImage src="https://github.com/novacdenis.png" />
             <AvatarFallback>ND</AvatarFallback>
           </Avatar>

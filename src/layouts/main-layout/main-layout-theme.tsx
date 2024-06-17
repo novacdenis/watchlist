@@ -12,13 +12,13 @@ import { cn } from "@/utils/cn";
 
 const buttonClasses = cva(
   [
-    "absolute inset-y-0 flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-[10px] font-semibold uppercase text-muted-foreground",
+    "absolute inset-y-0 flex h-8 w-8 items-center justify-center rounded-full bg-background/80 text-[10px] font-semibold uppercase text-muted-foreground shadow-sm",
   ],
   {
     variants: {
       effect: {
         enabled: [
-          "transition-colors active:bg-primary/15 active:text-primary md:hover:bg-primary/15 md:hover:text-primary",
+          "colors active:bg-background active:text-primary md:hover:bg-background md:hover:text-primary",
         ],
       },
     },
@@ -30,6 +30,7 @@ const buttonClasses = cva(
 
 function MainLayoutTheme({ defaultTheme }: { defaultTheme: Theme }) {
   const [open, setOpen] = React.useState(false);
+  const [effect, setEffect] = React.useState<"enabled" | null>(null);
   const [theme, setTheme] = React.useState<Theme>(defaultTheme);
 
   const updateTheme = React.useCallback((theme: Theme) => {
@@ -103,10 +104,14 @@ function MainLayoutTheme({ defaultTheme }: { defaultTheme: Theme }) {
   return (
     <div
       role="button"
+      aria-expanded={open}
       tabIndex={open ? -1 : 0}
-      className={cn("flex cursor-auto items-center rounded-full bg-primary/10 p-1", {
-        "cursor-pointer transition-colors active:bg-primary/15 md:hover:bg-primary/15": !open,
-      })}
+      className={cn(
+        "group flex cursor-auto items-center rounded-full bg-primary/10 p-1 transition-colors aria-expanded:bg-primary/15",
+        {
+          "cursor-pointer active:bg-primary/15 md:hover:bg-primary/15": !open,
+        },
+      )}
       onClick={() => setOpen(true)}
       onKeyDown={(event) => {
         if (event.key === "Escape") {
@@ -118,25 +123,39 @@ function MainLayoutTheme({ defaultTheme }: { defaultTheme: Theme }) {
           event.currentTarget.querySelector("button")?.focus();
         }
       }}
+      onBlur={() => {
+        requestAnimationFrame(() => {
+          if (document.activeElement instanceof HTMLElement) {
+            const parent = document.activeElement.parentElement;
+
+            if (!parent || parent.id !== "theme-selector") {
+              setOpen(false);
+            }
+          }
+        });
+      }}
     >
       <MotionConfig transition={{ type: "spring", stiffness: 400, damping: 30 }}>
         <motion.span
           animate={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
-          className="flex items-center justify-center px-0.5 text-muted-foreground"
+          className="flex items-center justify-center px-0.5 text-muted-foreground transition-colors group-active:text-primary group-aria-expanded:text-primary md:group-hover:text-primary"
         >
           <ChevronLeftIcon className="h-5 w-5" />
         </motion.span>
 
         <motion.div
+          id="theme-selector"
+          role="menu"
           initial={{ width: theme === "auto" ? 40 : 32 }}
           animate={{ width: open ? 112 : theme === "auto" ? 40 : 32 }}
           className="relative flex h-8 gap-1"
+          onAnimationComplete={() => setEffect(open ? "enabled" : null)}
         >
           <motion.button
             tabIndex={open ? 0 : -1}
             initial={getInitialState("auto")}
             animate={getAnimationState("auto")}
-            className={cn(buttonClasses({ effect: open ? "enabled" : null }), "w-10")}
+            className={cn(buttonClasses({ effect }), "w-10")}
             onClick={createClickHandler("auto")}
             onKeyDown={createKeydownHandler("auto")}
           >
@@ -146,7 +165,7 @@ function MainLayoutTheme({ defaultTheme }: { defaultTheme: Theme }) {
             tabIndex={open ? 0 : -1}
             initial={getInitialState("light")}
             animate={getAnimationState("light")}
-            className={cn(buttonClasses({ effect: open ? "enabled" : null }))}
+            className={cn(buttonClasses({ effect }))}
             onClick={createClickHandler("light")}
             onKeyDown={createKeydownHandler("light")}
           >
@@ -156,7 +175,7 @@ function MainLayoutTheme({ defaultTheme }: { defaultTheme: Theme }) {
             tabIndex={open ? 0 : -1}
             initial={getInitialState("dark")}
             animate={getAnimationState("dark")}
-            className={cn(buttonClasses({ effect: open ? "enabled" : null }))}
+            className={cn(buttonClasses({ effect }))}
             onClick={createClickHandler("dark")}
             onKeyDown={createKeydownHandler("dark")}
           >
