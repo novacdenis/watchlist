@@ -4,6 +4,10 @@ import type { Theme } from "@/types";
 
 import { cookies } from "next/headers";
 
+async function getUserTheme() {
+  return (cookies().get("user_theme")?.value ?? "auto") as Theme;
+}
+
 async function setUserTheme(theme: Theme) {
   cookies().set("user_theme", theme, {
     path: "/",
@@ -12,4 +16,4 @@ async function setUserTheme(theme: Theme) {
   });
 }
 
-export { setUserTheme };
+export { getUserTheme, setUserTheme };
