@@ -11,9 +11,9 @@ async function MainLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <header className="flex items-center justify-between gap-x-2.5 p-5">
-        <Link href="/" className="flex items-center gap-x-2 overflow-hidden text-xl font-medium">
+        <Link href="/" className="flex items-center gap-x-2 overflow-hidden">
           <PlayCircleIcon className="h-6 w-6 shrink-0 text-purple-500" />
-          <span className="truncate">watchlist</span>
+          <span className="truncate text-xl font-medium">watchlist</span>
         </Link>
 
         <div className="flex gap-x-2.5">
